@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eniecole.tpmod4stateorder.ui.theme.TPTheme
+import com.eniecole.tpmod4stateorder.OrderState.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +42,11 @@ class MainActivity : ComponentActivity() {
 fun OrderPage(viewModel: OrderViewModel = viewModel()) {
     val stateOrder = viewModel.orderStateFlow.collectAsState()
     when(stateOrder.value){
-        is OrderState.CartState -> CartPage(viewModel)
-        is OrderState.CartValidatedState -> DeliveryAddressPage(viewModel)
-        is OrderState.AddressFilledState -> CreditCardPage(viewModel)
-        is OrderState.CreditCardFilledState -> OrderInProgressPage()
-        is OrderState.OrderFinishedSate -> OrderFinishedPage()
+        is CartState -> CartPage(viewModel)
+        is CartValidatedState -> DeliveryAddressPage(viewModel)
+        is AddressFilledState -> CreditCardPage(viewModel)
+        is CreditCardFilledState -> OrderInProgressPage()
+        is OrderFinishedSate -> OrderFinishedPage()
     }
 }
 @Composable
@@ -93,6 +94,7 @@ fun OrderInProgressPage() {
 
     }
 }
+
 @Composable
 fun OrderFinishedPage() {
     Box(Modifier.fillMaxSize()) {
